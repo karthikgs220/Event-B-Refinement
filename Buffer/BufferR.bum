@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.machineFile org.eventb.core.configuration="org.eventb.core.fwd" version="5">
+    <org.eventb.core.event name="'" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="INITIALISATION">
+        <org.eventb.core.action name="'" org.eventb.core.assignment="a ≔ ∅" org.eventb.core.label="act1"/>
+        <org.eventb.core.action name="(" org.eventb.core.assignment="b ≔ 1" org.eventb.core.label="act2"/>
+        <org.eventb.core.action name=")" org.eventb.core.assignment="f ≔ 1" org.eventb.core.label="act3"/>
+        <org.eventb.core.action name="*" org.eventb.core.assignment="elem :∈ ELEMENT" org.eventb.core.label="act4"/>
+        <org.eventb.core.action name="+" org.eventb.core.assignment="res ≔ FALSE" org.eventb.core.label="act5"/>
+        <org.eventb.core.witness name="," org.eventb.core.label="element'" org.eventb.core.predicate="element'=elem'"/>
+    </org.eventb.core.event>
+    <org.eventb.core.refinesMachine name="(" org.eventb.core.target="Buffer"/>
+    <org.eventb.core.seesContext name=")" org.eventb.core.target="Buffer_ctx"/>
+    <org.eventb.core.variable name="*" org.eventb.core.identifier="a"/>
+    <org.eventb.core.variable name="+" org.eventb.core.identifier="b"/>
+    <org.eventb.core.variable name="," org.eventb.core.identifier="f"/>
+    <org.eventb.core.invariant name="-" org.eventb.core.label="inv1" org.eventb.core.predicate="a ∈ 1‥maxsize → ELEMENT"/>
+    <org.eventb.core.invariant name="." org.eventb.core.label="inv2" org.eventb.core.predicate="f ∈ ℕ"/>
+    <org.eventb.core.invariant name="/" org.eventb.core.label="inv3" org.eventb.core.predicate="b ∈ ℕ "/>
+    <org.eventb.core.invariant name="2" org.eventb.core.label="inv4" org.eventb.core.predicate="finite(a)"/>
+    <org.eventb.core.invariant name="3" org.eventb.core.label="inv5" org.eventb.core.predicate="∀n·(n∈dom(buffer) ⇒ buffer(n)=a((n+f−2 mod maxsize)+1))"/>
+    <org.eventb.core.invariant name="4" org.eventb.core.label="inv6" org.eventb.core.predicate="f ∈ 1‥maxsize "/>
+    <org.eventb.core.invariant name="5" org.eventb.core.label="inv7" org.eventb.core.predicate="b ∈ 1‥maxsize"/>
+    <org.eventb.core.variable name="6" org.eventb.core.identifier="elem"/>
+    <org.eventb.core.invariant name="7" org.eventb.core.label="inv8" org.eventb.core.predicate="f=front"/>
+    <org.eventb.core.invariant name="8" org.eventb.core.label="inv9" org.eventb.core.predicate="b=back"/>
+    <org.eventb.core.variable name="9" org.eventb.core.identifier="res"/>
+    <org.eventb.core.invariant name=":" org.eventb.core.label="inv10" org.eventb.core.predicate="elem ∈ ELEMENT"/>
+    <org.eventb.core.invariant name=";" org.eventb.core.label="inv11" org.eventb.core.predicate="element = elem"/>
+    <org.eventb.core.invariant name="=" org.eventb.core.label="inv12" org.eventb.core.predicate="res ∈ BOOL"/>
+    <org.eventb.core.event name="&gt;" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="add">
+        <org.eventb.core.refinesEvent name="'" org.eventb.core.target="add"/>
+        <org.eventb.core.parameter name="(" org.eventb.core.identifier="e"/>
+        <org.eventb.core.guard name=")" org.eventb.core.label="grd1" org.eventb.core.predicate="e ∈ ELEMENT"/>
+        <org.eventb.core.action name="*" org.eventb.core.assignment="a :∣ card(ran(a'))≤maxsize ∧ finite(a') ∧ a' ∈ 1‥maxsize → ELEMENT ∧ (b=maxsize−1 ∧ f ≠ 0 ⇒ b=0 ∧ a'(b) = e) ∧ (b≠maxsize−1 ∨ f=0 ⇒ b=b+1 ∧ a'(b) = e) " org.eventb.core.label="act1"/>
+        <org.eventb.core.guard name="+" org.eventb.core.label="grd2" org.eventb.core.predicate="card(ran(a)) &lt; maxsize"/>
+        <org.eventb.core.guard name="," org.eventb.core.label="grd3" org.eventb.core.predicate="b≤maxsize"/>
+        <org.eventb.core.guard name="-" org.eventb.core.label="grd4" org.eventb.core.predicate="f≤maxsize"/>
+    </org.eventb.core.event>
+    <org.eventb.core.event name="?" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="remove">
+        <org.eventb.core.refinesEvent name="'" org.eventb.core.target="remove"/>
+        <org.eventb.core.guard name="(" org.eventb.core.label="grd1" org.eventb.core.predicate="card(ran(a)) &gt; 0"/>
+        <org.eventb.core.guard name=")" org.eventb.core.label="grd2" org.eventb.core.predicate="b &gt; 0"/>
+        <org.eventb.core.guard name="*" org.eventb.core.label="grd3" org.eventb.core.predicate="f &gt; 0"/>
+        <org.eventb.core.action name="+" org.eventb.core.assignment="elem ≔ a(f)" org.eventb.core.label="act1"/>
+        <org.eventb.core.action name="," org.eventb.core.assignment="f ≔ f + 1" org.eventb.core.label="act2"/>
+        <org.eventb.core.guard name="-" org.eventb.core.label="grd4" org.eventb.core.predicate="f ≠ b"/>
+        <org.eventb.core.witness name="." org.eventb.core.label="element'" org.eventb.core.predicate="element'=elem'"/>
+        <org.eventb.core.action name="/" org.eventb.core.assignment="a ≔ a ⩥ {a(f)}" org.eventb.core.label="act3"/>
+    </org.eventb.core.event>
+    <org.eventb.core.event name="@" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="empty">
+        <org.eventb.core.action name="'" org.eventb.core.assignment="res :∣ (f=b ⇒ res'=TRUE) ∧ (f≠b ⇒ res'=FALSE) " org.eventb.core.label="act1"/>
+        <org.eventb.core.refinesEvent name="(" org.eventb.core.target="empty"/>
+        <org.eventb.core.witness name=")" org.eventb.core.label="query'" org.eventb.core.predicate="query'=res'"/>
+    </org.eventb.core.event>
+    <org.eventb.core.event name="A" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="full">
+        <org.eventb.core.refinesEvent name="'" org.eventb.core.target="full"/>
+        <org.eventb.core.action name="(" org.eventb.core.assignment="res :∣ (card(ran(a))=maxsize⇒res'=TRUE) ∧ (card(ran(a))≠maxsize⇒res'=FALSE)" org.eventb.core.label="act1"/>
+        <org.eventb.core.witness name=")" org.eventb.core.label="query'" org.eventb.core.predicate="query'=res'"/>
+    </org.eventb.core.event>
+    <org.eventb.core.invariant name="B" org.eventb.core.label="inv13" org.eventb.core.predicate="query = res"/>
+    <org.eventb.core.invariant name="C" org.eventb.core.label="inv14" org.eventb.core.predicate="finite(ran(a))"/>
+</org.eventb.core.machineFile>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.machineFile org.eventb.core.configuration="org.eventb.core.fwd" version="5">
+    <org.eventb.core.event name="'" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="INITIALISATION">
+        <org.eventb.core.action name="'" org.eventb.core.assignment="stackarr ≔ ∅" org.eventb.core.label="act1"/>
+        <org.eventb.core.action name="(" org.eventb.core.assignment="stackTop ≔ 0" org.eventb.core.label="act2"/>
+        <org.eventb.core.action name=")" org.eventb.core.assignment="elem :∈ ELEMENT" org.eventb.core.label="act3"/>
+        <org.eventb.core.action name="*" org.eventb.core.assignment="result ≔ FALSE" org.eventb.core.label="act4"/>
+        <org.eventb.core.witness name="+" org.eventb.core.label="element'" org.eventb.core.predicate="element'=elem'"/>
+    </org.eventb.core.event>
+    <org.eventb.core.refinesMachine name="(" org.eventb.core.target="Stack"/>
+    <org.eventb.core.seesContext name=")" org.eventb.core.target="Stack_ctx"/>
+    <org.eventb.core.variable name="*" org.eventb.core.identifier="stackarr"/>
+    <org.eventb.core.invariant name="+" org.eventb.core.label="inv1" org.eventb.core.predicate="stackarr ∈ ℕ ⇸ ELEMENT"/>
+    <org.eventb.core.variable name="." org.eventb.core.identifier="elem"/>
+    <org.eventb.core.invariant name="/" org.eventb.core.label="inv3" org.eventb.core.predicate="elem ∈ ELEMENT"/>
+    <org.eventb.core.invariant name="0" org.eventb.core.label="inv4" org.eventb.core.predicate="element = elem"/>
+    <org.eventb.core.invariant name="1" org.eventb.core.label="inv5" org.eventb.core.predicate="stackTop ∈ 0‥maxsize"/>
+    <org.eventb.core.variable name="2" org.eventb.core.identifier="stackTop"/>
+    <org.eventb.core.invariant name="3" org.eventb.core.label="inv6" org.eventb.core.predicate="top = stackTop"/>
+    <org.eventb.core.variable name="4" org.eventb.core.identifier="result"/>
+    <org.eventb.core.invariant name="5" org.eventb.core.label="inv7" org.eventb.core.predicate="result ∈ BOOL"/>
+    <org.eventb.core.invariant name="6" org.eventb.core.label="inv8" org.eventb.core.predicate="query = result"/>
+    <org.eventb.core.event name="7" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="push">
+        <org.eventb.core.refinesEvent name="'" org.eventb.core.target="push"/>
+        <org.eventb.core.parameter name="(" org.eventb.core.identifier="e"/>
+        <org.eventb.core.guard name=")" org.eventb.core.label="grd1" org.eventb.core.predicate="e ∈ ELEMENT"/>
+        <org.eventb.core.action name="+" org.eventb.core.assignment="stackTop ≔ stackTop + 1" org.eventb.core.label="act1"/>
+        <org.eventb.core.guard name="/" org.eventb.core.label="grd2" org.eventb.core.predicate="stackTop ∉ dom(stackarr)"/>
+        <org.eventb.core.guard name="0" org.eventb.core.label="grd3" org.eventb.core.predicate="stackTop &lt; maxsize−1"/>
+        <org.eventb.core.guard name="1" org.eventb.core.label="grd4" org.eventb.core.predicate="card(ran(stackarr)) &lt; maxsize−1"/>
+        <org.eventb.core.action name="2" org.eventb.core.assignment="stackarr(stackTop) ≔ e" org.eventb.core.label="act3"/>
+        <org.eventb.core.guard name="3" org.eventb.core.label="grd5" org.eventb.core.predicate="stackarr{stackTop ↦ e} ∈ ℕ ⇸ ELEMENT"/>
+    </org.eventb.core.event>
+    <org.eventb.core.event name="8" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="pop">
+        <org.eventb.core.guard name="'" org.eventb.core.label="grd1" org.eventb.core.predicate="stackTop &gt; 0"/>
+        <org.eventb.core.action name="(" org.eventb.core.assignment="stackarr ≔ stackarr ⩥ {stackarr(stackTop−1)}" org.eventb.core.label="act1"/>
+        <org.eventb.core.action name=")" org.eventb.core.assignment="elem ≔ stackarr(stackTop−1)" org.eventb.core.label="act2"/>
+        <org.eventb.core.action name="*" org.eventb.core.assignment="stackTop ≔ stackTop − 1" org.eventb.core.label="act3"/>
+        <org.eventb.core.guard name="," org.eventb.core.label="grd2" org.eventb.core.predicate="card(ran(stackarr)) &gt; 0"/>
+        <org.eventb.core.refinesEvent name="-" org.eventb.core.target="pop"/>
+        <org.eventb.core.witness name="." org.eventb.core.label="element'" org.eventb.core.predicate="element'=elem'"/>
+        <org.eventb.core.guard name="/" org.eventb.core.label="grd3" org.eventb.core.predicate="stackTop &lt; maxsize−1"/>
+        <org.eventb.core.guard name="1" org.eventb.core.label="grd4" org.eventb.core.predicate="stackTop ∈ dom(stackarr)"/>
+        <org.eventb.core.guard name="2" org.eventb.core.label="grd5" org.eventb.core.predicate="stackTop−1 ∈ dom(stackarr)"/>
+    </org.eventb.core.event>
+    <org.eventb.core.event name="9" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="empty">
+        <org.eventb.core.refinesEvent name="'" org.eventb.core.target="empty"/>
+        <org.eventb.core.action name="(" org.eventb.core.assignment="result :∣ (stackTop = 0 ⇒ result'=TRUE) ∧ (stackTop &gt; 0 ⇒ result'=FALSE)" org.eventb.core.label="act1"/>
+        <org.eventb.core.witness name=")" org.eventb.core.label="query'" org.eventb.core.predicate="query'=result'"/>
+    </org.eventb.core.event>
+    <org.eventb.core.event name=":" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="full">
+        <org.eventb.core.refinesEvent name="'" org.eventb.core.target="full"/>
+        <org.eventb.core.action name="(" org.eventb.core.assignment="result :∣ (stackTop = maxsize ⇒ result'=TRUE) ∧ (stackTop ≠ maxsize ⇒ result'=FALSE)" org.eventb.core.label="act1"/>
+        <org.eventb.core.witness name=")" org.eventb.core.label="query'" org.eventb.core.predicate="query'=result'"/>
+    </org.eventb.core.event>
+    <org.eventb.core.invariant name=";" org.eventb.core.label="inv9" org.eventb.core.predicate="finite(ran(stackarr))"/>
+    <org.eventb.core.invariant name="=" org.eventb.core.label="inv10" org.eventb.core.predicate="card(ran(stackarr)) ≤ maxsize"/>
+</org.eventb.core.machineFile>
